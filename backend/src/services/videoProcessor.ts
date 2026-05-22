@@ -9,6 +9,7 @@ import config from "../config";
 import { emitProgress, emitComplete, emitError } from "../socket";
 import { IVideo } from "../types";
 
+
 const hf = new InferenceClient(config.huggingFaceToken);
 
 interface SensitivityScores {
