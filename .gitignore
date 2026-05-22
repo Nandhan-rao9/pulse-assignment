@@ -1,0 +1,4 @@
+.claude/
+.tsbuildinfo
+node_modules
+dist

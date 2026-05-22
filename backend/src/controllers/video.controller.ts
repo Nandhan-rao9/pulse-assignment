@@ -114,7 +114,7 @@ export const listVideos = async (
     sort[sortBy] = sortOrder === "asc" ? 1 : -1;
 
     const videos = await Video.find(filter)
-      .populate("uploadedBy", "name email")
+      .populate("uploadedBy", "name email role")
       .sort(sort)
       .skip((page - 1) * limit)
       .limit(limit);
@@ -146,7 +146,7 @@ export const getVideo = async (
   try {
     const video = await Video.findById(req.params.id).populate(
       "uploadedBy",
-      "name email",
+      "name email role",
     );
     if (!video) {
       res.status(404).json({ success: false, message: "Video not found." });

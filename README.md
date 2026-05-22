@@ -1,225 +1,332 @@
-# PulseGen — AI-Powered Video Management Platform
+<div align="center">
 
-> A full-stack video management platform with **AI-driven content moderation**, **role-based access control (RBAC)**, **real-time processing updates via WebSockets**, and **multi-tenant organisation support**.
+# 🎬 Pulse
 
----
+### AI-Powered Video Management Platform
 
-## Table of Contents
+*Intelligent content moderation • Real-time processing • Enterprise-grade RBAC*
 
-1. [Architecture Overview](#architecture-overview)
-2. [Tech Stack](#tech-stack)
-3. [Installation & Setup Guide](#installation--setup-guide)
-4. [Environment Variables](#environment-variables)
-5. [API Documentation](#api-documentation)
-6. [User Manual](#user-manual)
-7. [Assumptions & Design Decisions](#assumptions--design-decisions)
-8. [Deployment](#deployment)
-9. [Project Structure](#project-structure)
-10. [License](#license)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19-61dafb?logo=react)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-8-47A248?logo=mongodb)](https://www.mongodb.com/)
+
+[Quick Start](#-quick-start) • [Features](#-features) • [Architecture](#-architecture) • [Docs](#-documentation)
+
+</div>
 
 ---
 
-## Architecture Overview
+## 🌟 Overview
+
+**Pulse** is a production-ready video management platform that automatically moderates content using AI, enforces granular access control, and provides real-time collaboration features for multi-tenant organizations.
+
+### Key Highlights
+
+- **🤖 AI Content Moderation**: Automatic NSFW detection + profanity analysis using Hugging Face models
+- **⚡ Real-Time Updates**: WebSocket-driven progress tracking and notifications
+- **🔒 Enterprise RBAC**: Three-tier role system (Admin, Editor, Viewer)
+- **🏢 Multi-Tenant**: Organisation-scoped data isolation
+- **📊 Smart Processing**: Scene-change detection + adaptive frame sampling
+- **🎯 Zero-Config ML**: Serverless AI integration — no GPU required
+
+---
+
+## ✨ Features
+
+### Content Moderation
+- Frame-by-frame visual analysis (NSFW detection)
+- Audio transcription with profanity detection
+- FFmpeg-powered scene change detection
+- Weighted scoring algorithm for classification
+
+### Security & Access
+- JWT authentication with bcrypt hashing
+- Role-based permissions (Admin/Editor/Viewer)
+- Multi-tenant organisation isolation
+- Dual-layer RBAC (frontend + backend)
+
+### Video Management
+- Drag-and-drop uploads (up to 500MB)
+- HTTP range request streaming
+- Auto-generated thumbnails
+- Search, filter, and pagination
+- Metadata management (tags, categories, visibility)
+
+### Real-Time Features
+- Live processing progress updates
+- WebSocket notifications for role changes
+- Room-based event broadcasting
+- Non-blocking async processing
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| **Frontend** | React 19, TypeScript, Tailwind CSS 4, Vite 7, Socket.IO |
+| **Backend** | Node.js 20+, Express 5, TypeScript, Socket.IO 4 |
+| **Database** | MongoDB 8 with Mongoose ODM |
+| **AI/ML** | Hugging Face (Falconsai NSFW + Whisper large-v3) |
+| **Media** | FFmpeg for video processing |
+| **Auth** | JWT + bcrypt |
+| **Deploy** | Docker (backend) + Vercel (frontend) |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+```bash
+node --version    # v20.0.0+
+npm --version     # v9.0.0+
+mongod --version  # v6.0+
+ffmpeg -version   # v5.0+
+```
+
+### Installation
+
+**1. Clone repository**
+```bash
+git clone <repo-url>
+cd pulse
+```
+
+**2. Setup backend** ([详细文档](./backend/README.md))
+```bash
+cd backend
+npm install
+cp .env.example .env    # Configure environment
+npm run dev             # Start on port 5000
+```
+
+**3. Setup frontend** ([详细文档](./frontend/README.md))
+```bash
+cd frontend
+npm install
+npm run dev             # Start on port 5173
+```
+
+**4. Access application**
+```
+Frontend: http://localhost:5173
+Backend:  http://localhost:5000
+```
+
+---
+
+## 🏗 Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        CLIENT (Browser)                         │
-│  React 19 · React Router · Tailwind CSS · Socket.IO Client      │
-└──────────┬──────────────────────────────────┬───────────────────┘
-           │  REST (Axios)                    │  WebSocket
-           ▼                                  ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                     BACKEND  (Node / Express 5)                  │
-│                                                                  │
-│  ┌──────────┐  ┌────────────┐  ┌───────────────┐  ┌──────────┐ │
-│  │  Auth     │  │  Video     │  │  User Mgmt    │  │ Socket.IO│ │
-│  │  Routes   │  │  Routes    │  │  Routes       │  │  Server  │ │
-│  └────┬─────┘  └─────┬──────┘  └──────┬────────┘  └────┬─────┘ │
-│       │              │                │                 │       │
-│  ┌────▼──────────────▼────────────────▼─────────────────▼─────┐ │
-│  │              Middleware Layer                               │ │
-│  │  JWT Auth · RBAC · Zod Validation · Multer Upload          │ │
-│  └────────────────────────┬───────────────────────────────────┘ │
-│                           │                                     │
-│  ┌────────────────────────▼───────────────────────────────────┐ │
-│  │            Video Processing Pipeline                       │ │
-│  │  FFmpeg (metadata, frames, thumbnails, audio extraction)   │ │
-│  │  Hugging Face Inference API:                               │ │
-│  │    • Falconsai/nsfw_image_detection  (visual analysis)     │ │
-│  │    • openai/whisper-large-v3         (speech-to-text)      │ │
-│  │  Profanity detection · Sensitivity classification          │ │
-│  └────────────────────────┬───────────────────────────────────┘ │
-│                           │                                     │
-│  ┌────────────────────────▼───────────────────────────────────┐ │
-│  │                   MongoDB (Mongoose ODM)                   │ │
-│  │  Users Collection  ·  Videos Collection                    │ │
-│  └────────────────────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    CLIENT (Browser)                         │
+│         React 19 • Socket.IO • Tailwind CSS                 │
+└──────────┬────────────────────────────────┬─────────────────┘
+           │ REST API                       │ WebSocket
+           ▼                                ▼
+┌──────────────────────────────────────────────────────────────┐
+│                  BACKEND (Node/Express)                      │
+│                                                              │
+│  ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌───────────┐ │
+│  │   Auth   │  │   Video   │  │   User   │  │ Socket.IO │ │
+│  └────┬─────┘  └─────┬─────┘  └────┬─────┘  └─────┬─────┘ │
+│       │              │              │              │       │
+│  ┌────▼──────────────▼──────────────▼──────────────▼─────┐ │
+│  │       Middleware (JWT • RBAC • Validation)            │ │
+│  └────────────────────┬──────────────────────────────────┘ │
+│                       │                                     │
+│  ┌────────────────────▼──────────────────────────────────┐ │
+│  │       Video Processing Pipeline (FFmpeg + AI)        │ │
+│  │  • Metadata extraction  • Frame sampling             │ │
+│  │  • NSFW detection       • Audio transcription        │ │
+│  │  • Profanity check      • Classification             │ │
+│  └────────────────────┬──────────────────────────────────┘ │
+│                       │                                     │
+│  ┌────────────────────▼──────────────────────────────────┐ │
+│  │              MongoDB (Mongoose)                       │ │
+│  │         Users • Videos • Metadata                     │ │
+│  └───────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ### Data Flow
 
-1. **Upload** — Editor/Admin uploads a video file via the React frontend.
-2. **Storage** — Multer stores the file on disk; a Video document is created in MongoDB with status `pending`.
-3. **Processing Pipeline** (asynchronous, non-blocking):
-   - **Metadata extraction** — FFmpeg extracts duration, resolution.
-   - **Frame extraction** — Scene-change detection + fixed-interval sampling.
-   - **Thumbnail generation** — First-second frame scaled to 320px width.
-   - **Visual analysis** — Each frame sent to Falconsai NSFW model via Hugging Face API.
-   - **Audio analysis** — Audio extracted as WAV → Whisper transcription → profanity scoring.
-   - **Classification** — Weighted scoring algorithm classifies video as `safe` or `flagged`.
-4. **Real-time updates** — Socket.IO emits progress events to the uploading user and anyone viewing that video.
-5. **Access control** — RBAC middleware enforces role-based visibility; multi-tenant org isolation.
+1. **Upload** → Editor uploads video via React frontend
+2. **Storage** → Multer saves file, MongoDB record created (`pending`)
+3. **Processing** → Async AI pipeline:
+   - FFmpeg extracts metadata & frames
+   - Scene detection + interval sampling
+   - Visual NSFW analysis (Falconsai)
+   - Audio transcription + profanity (Whisper)
+   - Classification: `safe` or `flagged`
+4. **Real-Time** → Socket.IO broadcasts progress
+5. **Access** → RBAC enforces org/role visibility
 
 ---
 
-## Tech Stack
+## 📖 Documentation
 
-| Layer        | Technology                                                              |
-| ------------ | ----------------------------------------------------------------------- |
-| **Frontend** | React 19, TypeScript, Tailwind CSS 4, React Router 7, Vite 7           |
-| **Backend**  | Node.js, Express 5, TypeScript, Socket.IO 4                            |
-| **Database** | MongoDB with Mongoose 8 ODM                                            |
-| **AI / ML**  | Hugging Face Inference API (Falconsai NSFW, Whisper large-v3)           |
-| **Media**    | FFmpeg (fluent-ffmpeg) for video processing                             |
-| **Auth**     | JWT (jsonwebtoken), bcryptjs password hashing                           |
-| **Validation** | Zod schema validation                                                |
-| **Deployment** | Docker (backend), Vercel (frontend)                                  |
+- **[Backend Documentation](./backend/README.md)** - API, setup, architecture
+- **[Frontend Documentation](./frontend/README.md)** - Components, state, styling
+
+### Quick Links
+
+- [API Reference](./backend/README.md#-api-reference)
+- [Environment Variables](./backend/README.md#-environment-variables)
+- [Deployment Guide](./backend/README.md#-deployment)
+- [Component Guide](./frontend/README.md#-components)
+- [RBAC System](./frontend/README.md#-rbac-system)
 
 ---
 
-## Installation & Setup Guide
+## 📊 Project Structure
 
-### Prerequisites
-
-| Requirement          | Version  | Notes                                    |
-| -------------------- | -------- | ---------------------------------------- |
-| **Node.js**          | ≥ 20 LTS | Required for both frontend and backend   |
-| **npm**              | ≥ 9      | Comes with Node.js                       |
-| **MongoDB**          | ≥ 6.0    | Local install or MongoDB Atlas           |
-| **FFmpeg**           | ≥ 5.0    | Must be on system PATH                   |
-| **Hugging Face Token** | —      | Free account at https://huggingface.co   |
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/<your-username>/pulsegen.git
-cd pulsegen
+```
+pulse/
+├── 📄 README.md              # This file
+├── 📦 backend/               # Node.js + Express API
+│   ├── 📄 README.md          # Backend documentation
+│   ├── 🐳 Dockerfile
+│   └── 📁 src/
+│       ├── controllers/      # Request handlers
+│       ├── middleware/       # Auth, RBAC, validation
+│       ├── models/           # MongoDB schemas
+│       ├── routes/           # API endpoints
+│       ├── services/         # Business logic (AI pipeline)
+│       └── config/           # Configuration
+│
+├── 🎨 frontend/              # React SPA
+│   ├── 📄 README.md          # Frontend documentation
+│   ├── ⚙️ vite.config.ts
+│   └── 📁 src/
+│       ├── components/       # Reusable UI components
+│       ├── pages/            # Route pages
+│       ├── context/          # State providers
+│       ├── rbac/             # Permission system
+│       └── services/         # API client
+│
+└── 📦 uploads/               # Runtime storage (gitignored)
 ```
 
-### 2. Backend Setup
+---
 
+## 🎯 Core Features Explained
+
+### AI Processing Pipeline (5 Stages)
+
+| Stage | Progress | Description | Time |
+|-------|----------|-------------|------|
+| 1️⃣ Validation | 0-10% | Verify file exists | ~1s |
+| 2️⃣ Extraction | 10-30% | Metadata, frames, thumbnail | ~5-15s |
+| 3️⃣ AI Analysis | 30-75% | NSFW + profanity detection | ~20-60s |
+| 4️⃣ Classification | 75-90% | Weighted scoring | ~2s |
+| 5️⃣ Finalization | 90-100% | Cleanup & mark ready | ~1s |
+
+### Role Permissions
+
+| Capability | Viewer | Editor | Admin |
+|------------|:------:|:------:|:-----:|
+| View videos | ✅ | ✅ | ✅ |
+| Upload videos | ❌ | ✅ | ✅ |
+| Edit videos | ❌ | ✅ (own) | ✅ (all) |
+| Delete videos | ❌ | ✅ (own) | ✅ (all) |
+| Manage users | ❌ | ❌ | ✅ |
+
+### Video Visibility
+
+| Level | Access | Use Case |
+|-------|--------|----------|
+| 🔒 Private | Uploader only | Drafts, sensitive content |
+| 🏢 Organisation | Org members | Internal training |
+| 🌐 Public | Everyone | Marketing materials |
+
+---
+
+## 🔧 Configuration
+
+**Backend** requires:
+- MongoDB connection string
+- JWT secret key
+- Hugging Face API token
+- FFmpeg installed on system
+
+**Frontend** (optional):
+- Backend API URL (defaults to proxy)
+
+See detailed configuration in component READMEs.
+
+---
+
+## 🚀 Deployment
+
+### Production Stack
+
+- **Frontend**: Vercel (or Netlify/Cloudflare Pages)
+- **Backend**: Docker on Railway/Render/Fly.io
+- **Database**: MongoDB Atlas (free tier available)
+
+### Quick Deploy
+
+**Backend:**
 ```bash
 cd backend
-npm install
+docker build -t pulse-backend .
+docker run -p 5000:5000 --env-file .env pulse-backend
 ```
 
-Create a `.env` file in the `backend/` directory:
-
-```env
-# Server
-PORT=5000
-NODE_ENV=development
-
-# Database
-MONGODB_URI=mongodb://localhost:27017/pulsegen
-
-# Authentication
-JWT_SECRET=your-super-secret-jwt-key-change-this
-JWT_EXPIRES_IN=7d
-
-# Uploads
-UPLOAD_DIR=uploads
-MAX_FILE_SIZE=524288000          # 500 MB in bytes
-
-# AI / Hugging Face
-HUGGINGFACE_API_TOKEN=hf_your_token_here
-
-# Processing
-MAX_ANALYSIS_FRAMES=10
-FRAME_INTERVAL_SECONDS=5
-
-# CORS
-CORS_ORIGIN=http://localhost:5173
-```
-
-Build and start:
-
-```bash
-npm run build
-npm start
-```
-
-Or for development with rebuild:
-
-```bash
-npm run dev
-```
-
-### 3. Frontend Setup
-
+**Frontend:**
 ```bash
 cd frontend
-npm install
+npm run build
+# Deploy dist/ to Vercel
 ```
 
-Create a `.env` file in the `frontend/` directory (optional — defaults to `/api` with Vite proxy):
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The app will be available at **http://localhost:5173**.
-
-### 4. Seed an Admin User (Optional)
-
-```bash
-cd backend
-npm run seed:admin
-```
-
-### 5. Docker Deployment (Backend)
-
-```bash
-cd backend
-docker build -t pulsegen-backend .
-docker run -p 5000:5000 \
-  -e MONGODB_URI=mongodb://host.docker.internal:27017/pulsegen \
-  -e JWT_SECRET=your-secret \
-  -e HUGGINGFACE_API_TOKEN=hf_your_token \
-  -e CORS_ORIGIN=http://localhost:5173 \
-  pulsegen-backend
-```
+See [Backend README](./backend/README.md#-deployment) for detailed deployment guide.
 
 ---
 
-## Environment Variables
+## 💡 Key Design Decisions
 
-### Backend (`backend/.env`)
+**Why JWT?** Stateless auth scales horizontally without session storage
 
-| Variable               | Required | Default                              | Description                              |
-| ---------------------- | -------- | ------------------------------------ | ---------------------------------------- |
-| `PORT`                 | No       | `5000`                               | HTTP server port                         |
-| `NODE_ENV`             | No       | `development`                        | `development` or `production`            |
-| `MONGODB_URI`          | Yes      | `mongodb://localhost:27017/talentpulse` | MongoDB connection string             |
-| `JWT_SECRET`           | Yes      | `fallback-secret-change-me`         | Secret for signing JWTs                  |
-| `JWT_EXPIRES_IN`       | No       | `7d`                                 | Token expiration duration                |
-| `MAX_FILE_SIZE`        | No       | `524288000` (500 MB)                 | Max upload size in bytes                 |
-| `UPLOAD_DIR`           | No       | `uploads`                            | Directory for uploaded files             |
-| `HUGGINGFACE_API_TOKEN`| Yes      | —                                    | Hugging Face API token for AI models     |
-| `MAX_ANALYSIS_FRAMES`  | No       | `10`                                 | Max frames for analysis                  |
-| `FRAME_INTERVAL_SECONDS`| No     | `5`                                  | Seconds between sampled frames           |
-| `CORS_ORIGIN`          | No       | `http://localhost:5173`              | Allowed CORS origin                      |
+**Why MongoDB?** Flexible schema perfect for varied video metadata
 
-### Frontend (`frontend/.env`)
+**Why Hugging Face?** Serverless ML - no GPU infrastructure needed
 
-| Variable       | Required | Default | Description                |
-| -------------- | -------- | ------- | -------------------------- |
-| `VITE_API_URL` | No       | `/api`  | Backend API base URL       |
+**Why Scene Detection?** Catches brief inappropriate content missed by interval sampling
 
+**Why Async Processing?** Non-blocking uploads with real-time progress
+
+See detailed rationale in [Backend Documentation](./backend/README.md#-design-decisions).
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please:
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+**Code Style**: TypeScript strict mode • ESLint • Prettier
+
+---
+
+## 📄 License
+
+This project is provided as-is for educational purposes.
+
+---
+
+<div align="center">
+
+**Built with ❤️ using React, Node.js, MongoDB, and AI**
+
+[⬆ Back to Top](#-pulse)
+
+</div>

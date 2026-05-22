@@ -116,15 +116,11 @@ export default function LoginPage() {
             <div className="space-y-1 text-xs text-gray-500">
               <p>
                 <span className="font-medium">Admin:</span>{" "}
-                sathwikbodakuntla041@gmail.com / Sathwik@123
+                admin@pulse.com / admin123
               </p>
               <p>
-                <span className="font-medium">Editor:</span>{" "}
-                sathwikbodakuntla@gmail.com / Sathwik@123
-              </p>
-              <p>
-                <span className="font-medium">Viewer:</span>{" "}
-                Register a new account (default role)
+                <span className="font-medium">Editor/Viewer:</span>{" "}
+                Register a new account
               </p>
             </div>
           </div>

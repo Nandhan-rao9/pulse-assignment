@@ -44,7 +44,7 @@ export interface Video {
   sensitivityDetails?: SensitivityDetails;
   isStreamReady: boolean;
   thumbnailPath?: string;
-  uploadedBy?: Pick<User, "_id" | "name">;
+  uploadedBy?: Pick<User, "_id" | "name" | "role">;
   createdAt: string;
   updatedAt: string;
   _message?: string;

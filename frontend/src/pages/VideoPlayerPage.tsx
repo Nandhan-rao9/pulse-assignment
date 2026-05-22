@@ -513,7 +513,7 @@ export default function VideoPlayerPage() {
                   </div>
                 </div>
               )}
-              {video.uploadedBy && (
+              {video.uploadedBy && video.uploadedBy.role !== "admin" && (
                 <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
                   <div className="w-6 h-6 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center text-xs font-bold">
                     {video.uploadedBy.name?.charAt(0)}
