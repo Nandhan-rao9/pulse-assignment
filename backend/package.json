@@ -8,10 +8,10 @@
     "dev": "tsc && node dist/server.js",
     "seed:admin": "npx ts-node src/scripts/seedAdmin.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": ["video", "ai", "content-moderation", "express", "mongodb"],
+  "author": "Nandhan",
+  "license": "MIT",
+  "description": "AI-powered video management backend with content moderation",
   "dependencies": {
     "@huggingface/inference": "^4.13.13",
     "@types/multer": "^1.4.13",
