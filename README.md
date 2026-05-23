@@ -270,8 +270,8 @@ See detailed configuration in component READMEs.
 
 ### Production Stack
 
-- **Frontend**: Vercel (or Netlify/Cloudflare Pages)
-- **Backend**: Docker on Railway/Render/Fly.io
+- **Frontend**: Vercel 
+- **Backend**: Railway
 - **Database**: MongoDB Atlas (free tier available)
 
 ### Quick Deploy
@@ -310,30 +310,5 @@ See detailed rationale in [Backend Documentation](./backend/README.md#-design-de
 
 ---
 
-## 🤝 Contributing
-
-Contributions welcome! Please:
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
-**Code Style**: TypeScript strict mode • ESLint • Prettier
-
----
-
-## 📄 License
-
-This project is provided as-is for educational purposes.
-
----
-
-<div align="center">
-
-**Built with ❤️ using React, Node.js, MongoDB, and AI**
-
-[⬆ Back to Top](#-pulse)
 
 </div>
