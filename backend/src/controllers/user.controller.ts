@@ -16,12 +16,11 @@ export const listUsers = async (
 
     const filter: Record<string, unknown> = {};
     if (role) filter.role = role;
+    if (organisation) filter.organisation = organisation;
 
-    // Admin sees only their own organisation users (multi-tenant)
-    if (!req.user!.organisation) {
-      // No org — only return themselves
-      filter._id = req.user!._id;
-    } else {
+    // Multi-tenant: Admin sees users in their own organisation
+    // If admin has no organisation, they see all users (super admin)
+    if (req.user!.organisation) {
       filter.organisation = req.user!.organisation;
     }
 
@@ -67,17 +66,14 @@ export const updateUserRole = async (
       return;
     }
 
-    // Only allow updating users in the same organisation
-    if (!req.user!.organisation) {
-      res.status(403).json({
-        success: false,
-        message: "You must belong to an organisation to manage users.",
-      });
-      return;
+    // Build filter for multi-tenant support
+    const userFilter: Record<string, unknown> = { _id: req.params.id };
+    if (req.user!.organisation) {
+      userFilter.organisation = req.user!.organisation;
     }
 
     const user = await User.findOneAndUpdate(
-      { _id: req.params.id, organisation: req.user!.organisation },
+      userFilter,
       { role },
       { new: true, runValidators: true },
     ).select("-password");
@@ -129,19 +125,13 @@ export const toggleUserStatus = async (
       return;
     }
 
-    // Only allow toggling users in the same organisation
-    if (!req.user!.organisation) {
-      res.status(403).json({
-        success: false,
-        message: "You must belong to an organisation to manage users.",
-      });
-      return;
+    // Build filter for multi-tenant support
+    const userFilter: Record<string, unknown> = { _id: req.params.id };
+    if (req.user!.organisation) {
+      userFilter.organisation = req.user!.organisation;
     }
 
-    const user = await User.findOne({
-      _id: req.params.id,
-      organisation: req.user!.organisation,
-    });
+    const user = await User.findOne(userFilter);
     if (!user) {
       res.status(404).json({
         success: false,
