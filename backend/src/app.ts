@@ -23,6 +23,11 @@ if (config.nodeEnv === "development") {
 
 app.use(express.json());
 
+// Health check endpoint for Railway
+app.get("/", (req, res) => {
+  res.status(200).json({ status: "ok", message: "PulseGen API is running" });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/videos", videoRoutes);
