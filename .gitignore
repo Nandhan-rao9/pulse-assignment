@@ -1,4 +1,5 @@
 .claude/
+*.tsbuildinfo
 .tsbuildinfo
 node_modules
 dist

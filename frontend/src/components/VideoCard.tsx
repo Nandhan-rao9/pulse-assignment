@@ -77,7 +77,7 @@ const sensitivityConfig: Record<
   },
   unprocessed: {
     label: "Unprocessed",
-    color: "bg-gray-100 text-gray-600",
+    color: "bg-zinc-800/50 text-zinc-400",
     icon: Clock,
   },
 };
@@ -113,7 +113,7 @@ export default function VideoCard({ video }: VideoCardProps) {
 
   return (
     <div
-      className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 cursor-pointer group"
+      className="bg-zinc-900/80 rounded-xl border border-zinc-700 overflow-hidden hover:shadow-lg transition-all duration-200 cursor-pointer group"
       onClick={() => navigate(`/video/${video._id}`)}
     >
       {/* Thumbnail / Status area */}
@@ -126,7 +126,7 @@ export default function VideoCard({ video }: VideoCardProps) {
         }
       >
         {video.processingStatus === "completed" ? (
-          <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+          <div className="w-14 h-14 bg-zinc-900/80/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
             <Play size={24} className="text-primary-600 ml-1" />
           </div>
         ) : (
@@ -138,7 +138,7 @@ export default function VideoCard({ video }: VideoCardProps) {
 
         {/* Progress bar for processing */}
         {video.processingStatus === "processing" && (
-          <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-200">
+          <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-zinc-800">
             <div
               className="h-full bg-blue-500 transition-all duration-300 animate-progress-pulse"
               style={{ width: `${video.processingProgress || 0}%` }}
@@ -159,14 +159,14 @@ export default function VideoCard({ video }: VideoCardProps) {
 
       {/* Info */}
       <div className="p-4">
-        <h3 className="font-semibold text-gray-900 truncate mb-1">
+        <h3 className="font-semibold text-zinc-100 truncate mb-1">
           {video.title}
         </h3>
-        <p className="text-xs text-gray-500 truncate mb-3">
+        <p className="text-xs text-zinc-500 truncate mb-3">
           {video.description || "No description"}
         </p>
 
-        <div className="flex items-center justify-between text-xs text-gray-400">
+        <div className="flex items-center justify-between text-xs text-zinc-600">
           <span
             className={`px-2 py-0.5 rounded-full font-medium ${status.badge}`}
           >

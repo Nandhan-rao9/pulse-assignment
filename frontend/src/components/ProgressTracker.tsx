@@ -63,11 +63,11 @@ export default function ProgressTracker({
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5">
+    <div className="bg-zinc-900/80 border border-zinc-700 rounded-xl p-5">
       {/* Progress bar */}
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium text-gray-700">
+          <span className="text-sm font-medium text-zinc-300">
             {status === "pending"
               ? "Waiting to process..."
               : message || "Processing..."}
@@ -76,7 +76,7 @@ export default function ProgressTracker({
             {progress}%
           </span>
         </div>
-        <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-zinc-800/50 rounded-full overflow-hidden">
           <div
             className="h-full bg-linear-to-r from-primary-500 to-primary-600 rounded-full transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
@@ -93,7 +93,7 @@ export default function ProgressTracker({
           return (
             <div
               key={i}
-              className={`flex items-center gap-3 py-1.5 px-3 rounded-lg transition-colors ${
+              className={`flex items-center gap-3 py-1.5 px-3 rounded-xl transition-colors ${
                 isActive ? "bg-primary-50" : ""
               }`}
             >
@@ -105,7 +105,7 @@ export default function ProgressTracker({
                   className="text-primary-600 animate-spin shrink-0"
                 />
               ) : (
-                <div className="w-4 h-4 rounded-full border-2 border-gray-300 shrink-0" />
+                <div className="w-4 h-4 rounded-full border-2 border-zinc-700 shrink-0" />
               )}
               <span
                 className={`text-sm ${
@@ -113,7 +113,7 @@ export default function ProgressTracker({
                     ? "text-green-700 font-medium"
                     : isActive
                       ? "text-primary-700 font-medium"
-                      : "text-gray-400"
+                      : "text-zinc-600"
                 }`}
               >
                 {stage.label}

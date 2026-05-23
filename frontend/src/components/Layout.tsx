@@ -67,40 +67,40 @@ export default function Layout() {
   const isAdmin = can("admin:access");
 
   const linkClasses = ({ isActive }: { isActive: boolean }): string =>
-    `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+    `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
       isActive
-        ? "bg-primary-600 text-white shadow-md"
-        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+        ? "bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 glow"
+        : "text-zinc-400 hover:bg-zinc-800/50 hover:text-white"
     }`;
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-black">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/40 z-30 lg:hidden"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-gray-200 flex flex-col transform transition-transform lg:translate-x-0 ${
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-zinc-900/95 border-r border-zinc-800 flex flex-col transform transition-transform lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Logo */}
-        <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
-          <div className="w-9 h-9 bg-primary-600 rounded-lg flex items-center justify-center">
+        <div className="flex items-center gap-3 px-6 py-5 border-b border-zinc-800">
+          <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/50">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path d="M4 4l8 6-8 6V4z" fill="white" />
             </svg>
           </div>
-          <span className="text-xl font-bold text-gray-900">TalentPulse</span>
+          <span className="text-xl font-bold gradient-text">Pulse</span>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
           {filteredNav.map((item) => (
             <NavLink
               key={item.to}
@@ -108,35 +108,41 @@ export default function Layout() {
               className={linkClasses}
               onClick={() => setSidebarOpen(false)}
             >
-              <item.icon size={20} />
-              <span className="font-medium">{item.label}</span>
+              <item.icon size={20} strokeWidth={2.5} />
+              <span className="font-semibold">{item.label}</span>
             </NavLink>
           ))}
         </nav>
 
         {/* User info & logout */}
-        <div className="border-t border-gray-100 px-4 py-4">
-          <div className="flex items-center gap-2 mb-2 px-2">
+        <div className="border-t border-zinc-800 px-4 py-4">
+          <div className="flex items-center gap-2 mb-3 px-2">
             {connected ? (
-              <Wifi size={14} className="text-green-500" />
+              <Wifi size={14} className="text-emerald-400" />
             ) : (
               <WifiOff size={14} className="text-red-400" />
             )}
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-zinc-500">
               {connected ? "Connected" : "Disconnected"}
             </span>
           </div>
-          <div className="flex items-center gap-3 px-2 py-2">
-            <div className="w-8 h-8 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold text-sm">
+          <div className="flex items-center gap-3 px-2 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700/50">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-lg">
               {user?.name?.charAt(0)?.toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-sm font-semibold text-zinc-100 truncate">
                 {user?.name}
               </p>
               {roleInfo && (
                 <span
-                  className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold ${roleInfo.bgColor} ${roleInfo.color}`}
+                  className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                    user?.role === "admin"
+                      ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                      : user?.role === "editor"
+                        ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                        : "bg-zinc-700/50 text-zinc-400 border border-zinc-600"
+                  }`}
                 >
                   {roleInfo.label}
                 </span>
@@ -144,7 +150,7 @@ export default function Layout() {
             </div>
             <button
               onClick={handleLogout}
-              className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+              className="p-1.5 text-zinc-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all duration-200"
               title="Logout"
             >
               <LogOut size={18} />
@@ -156,18 +162,18 @@ export default function Layout() {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar (mobile) */}
-        <header className="lg:hidden flex items-center gap-4 px-4 py-3 bg-white border-b border-gray-200">
+        <header className="lg:hidden flex items-center gap-4 px-4 py-3 bg-zinc-900/95 border-b border-zinc-800 backdrop-blur-sm">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+            className="p-2 text-zinc-400 hover:bg-zinc-800 hover:text-white rounded-xl transition-colors"
           >
             <Menu size={22} />
           </button>
-          <span className="font-bold text-gray-900">TalentPulse</span>
+          <span className="font-bold gradient-text">Pulse</span>
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-gradient-to-br from-black via-zinc-900 to-black">
           <Outlet />
         </main>
       </div>

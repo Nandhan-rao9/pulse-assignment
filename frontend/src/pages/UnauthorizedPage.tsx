@@ -16,12 +16,12 @@ export default function UnauthorizedPage() {
         <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
           <ShieldOff size={40} className="text-red-400" />
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
-        <p className="text-gray-500 mb-2">
+        <h1 className="text-2xl font-bold text-zinc-100 mb-2">Access Denied</h1>
+        <p className="text-zinc-500 mb-2">
           You don't have permission to access this page.
         </p>
         {roleInfo && (
-          <p className="text-sm text-gray-400 mb-6">
+          <p className="text-sm text-zinc-600 mb-6">
             Your current role:{" "}
             <span
               className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${roleInfo.bgColor} ${roleInfo.color}`}
@@ -35,13 +35,13 @@ export default function UnauthorizedPage() {
         <div className="flex gap-3 justify-center">
           <button
             onClick={() => navigate("/dashboard")}
-            className="px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+            className="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 rounded-xl hover:from-primary-500 hover:to-primary-400 transition-colors text-sm font-medium"
           >
             Go to Dashboard
           </button>
           <button
             onClick={() => navigate(-1)}
-            className="px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+            className="px-5 py-2.5 border border-zinc-700 text-zinc-300 rounded-xl hover:bg-zinc-900/50 transition-colors text-sm font-medium"
           >
             Go Back
           </button>

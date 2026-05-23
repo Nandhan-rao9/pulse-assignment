@@ -147,18 +147,18 @@ export default function UploadDropzone({
           className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all ${
             isDragging
               ? "border-primary-500 bg-primary-50"
-              : "border-gray-300 hover:border-primary-400 hover:bg-gray-50"
+              : "border-zinc-700 hover:border-primary-400 hover:bg-zinc-900/50"
           }`}
         >
           <Upload
             size={48}
-            className={`mx-auto mb-4 ${isDragging ? "text-primary-500" : "text-gray-400"}`}
+            className={`mx-auto mb-4 ${isDragging ? "text-primary-500" : "text-zinc-600"}`}
           />
-          <p className="text-lg font-medium text-gray-700 mb-1">
+          <p className="text-lg font-medium text-zinc-300 mb-1">
             Drag & drop your video here
           </p>
-          <p className="text-sm text-gray-500 mb-4">or click to browse files</p>
-          <p className="text-xs text-gray-400">
+          <p className="text-sm text-zinc-500 mb-4">or click to browse files</p>
+          <p className="text-xs text-zinc-600">
             MP4, WebM, AVI, MOV, MKV • Max 500MB
           </p>
           <input
@@ -170,13 +170,13 @@ export default function UploadDropzone({
           />
         </div>
       ) : (
-        <div className="border border-gray-200 rounded-xl p-4 flex items-center gap-4">
-          <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+        <div className="border border-zinc-700 rounded-xl p-4 flex items-center gap-4">
+          <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
             <FileVideo size={24} className="text-primary-600" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-gray-900 truncate">{file.name}</p>
-            <p className="text-sm text-gray-500">{formatSize(file.size)}</p>
+            <p className="font-medium text-zinc-100 truncate">{file.name}</p>
+            <p className="text-sm text-zinc-500">{formatSize(file.size)}</p>
           </div>
           {!uploading && (
             <button
@@ -185,7 +185,7 @@ export default function UploadDropzone({
                 setFile(null);
                 setTitle("");
               }}
-              className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-600"
+              className="p-2 hover:bg-zinc-800/50 rounded-xl text-zinc-600 hover:text-zinc-400"
             >
               <X size={18} />
             </button>
@@ -197,12 +197,12 @@ export default function UploadDropzone({
       {uploading && (
         <div>
           <div className="flex items-center justify-between text-sm mb-1">
-            <span className="text-gray-600">Uploading...</span>
+            <span className="text-zinc-400">Uploading...</span>
             <span className="font-bold text-primary-600">
               {uploadProgress}%
             </span>
           </div>
-          <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-zinc-800/50 rounded-full overflow-hidden">
             <div
               className="h-full bg-primary-500 rounded-full transition-all duration-300"
               style={{ width: `${uploadProgress}%` }}
@@ -215,66 +215,66 @@ export default function UploadDropzone({
       {file && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-zinc-300 mb-1">
               Title
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               placeholder="Video title"
               required
             />
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-zinc-300 mb-1">
               Description
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none resize-none"
+              className="w-full px-4 py-2.5 border border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none resize-none"
               placeholder="Optional description..."
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-zinc-300 mb-1">
               Tags
             </label>
             <input
               type="text"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               placeholder="tag1, tag2, tag3"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-zinc-300 mb-1">
               Category
             </label>
             <input
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               placeholder="e.g. training, marketing"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-zinc-300 mb-1">
               Visibility
             </label>
             <select
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none bg-white"
+              className="w-full px-4 py-2.5 border border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none bg-zinc-900/80"
             >
               <option value="private">Private</option>
               <option value="organisation">Organisation</option>
@@ -289,7 +289,7 @@ export default function UploadDropzone({
         <button
           type="submit"
           disabled={uploading}
-          className="w-full py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors"
+          className="w-full py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 font-semibold rounded-xl hover:from-primary-500 hover:to-primary-400 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors"
         >
           {uploading ? (
             <>

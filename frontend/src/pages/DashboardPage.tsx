@@ -213,13 +213,13 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-500">Welcome back, {user?.name}</p>
+          <h1 className="text-2xl font-bold text-zinc-100">Dashboard</h1>
+          <p className="text-zinc-500">Welcome back, {user?.name}</p>
         </div>
         <div className="flex gap-3">
           <button
             onClick={fetchDashboard}
-            className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 border border-zinc-700 text-zinc-300 rounded-xl hover:bg-zinc-900/50 transition-colors"
           >
             <RefreshCw size={16} />
             Refresh
@@ -227,7 +227,7 @@ export default function DashboardPage() {
           {can("video:upload") && (
             <button
               onClick={() => navigate("/upload")}
-              className="flex items-center gap-2 px-5 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+              className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 rounded-xl hover:from-primary-500 hover:to-primary-400 transition-colors"
             >
               <Upload size={16} />
               Upload Video
@@ -241,15 +241,15 @@ export default function DashboardPage() {
         {statCards.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white rounded-xl border border-gray-200 p-5"
+            className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-5"
           >
             <div
-              className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${stat.color}`}
+              className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${stat.color}`}
             >
               <stat.icon size={20} />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-            <p className="text-sm text-gray-500">{stat.label}</p>
+            <p className="text-2xl font-bold text-zinc-100">{stat.value}</p>
+            <p className="text-sm text-zinc-500">{stat.label}</p>
           </div>
         ))}
       </div>
@@ -257,7 +257,7 @@ export default function DashboardPage() {
       {/* Active processing */}
       {processsingVideos.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-zinc-100 mb-4">
             <Clock size={18} className="inline mr-2 text-yellow-600" />
             Currently Processing ({processsingVideos.length})
           </h2>
@@ -265,9 +265,9 @@ export default function DashboardPage() {
             {processsingVideos.map((video) => (
               <div
                 key={video._id}
-                className="bg-white rounded-xl border border-gray-200 p-5"
+                className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-5"
               >
-                <h3 className="font-semibold text-gray-900 mb-3">
+                <h3 className="font-semibold text-zinc-100 mb-3">
                   {video.title}
                 </h3>
                 <ProgressTracker
@@ -284,7 +284,7 @@ export default function DashboardPage() {
       {/* Recent videos */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Videos</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">Recent Videos</h2>
           <button
             onClick={() => navigate("/library")}
             className="text-sm text-primary-600 hover:text-primary-700 font-medium"
@@ -293,9 +293,9 @@ export default function DashboardPage() {
           </button>
         </div>
         {videos.length === 0 ? (
-          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+          <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-12 text-center">
             <Film size={48} className="mx-auto text-gray-300 mb-4" />
-            <p className="text-gray-500">
+            <p className="text-zinc-500">
               No videos yet. Upload your first video!
             </p>
           </div>

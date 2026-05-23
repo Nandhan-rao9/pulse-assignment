@@ -18,7 +18,7 @@ import type { User } from "../types";
 const roleColors: Record<string, string> = {
   admin: "bg-purple-100 text-purple-700",
   editor: "bg-blue-100 text-blue-700",
-  viewer: "bg-gray-100 text-gray-700",
+  viewer: "bg-zinc-800/50 text-zinc-300",
 };
 
 export default function AdminPage() {
@@ -87,75 +87,75 @@ export default function AdminPage() {
       <div className="flex items-center gap-3">
         <Shield size={24} className="text-primary-600" />
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
-          <p className="text-gray-500">Manage users and roles</p>
+          <h1 className="text-2xl font-bold text-zinc-100">Admin Panel</h1>
+          <p className="text-zinc-500">Manage users and roles</p>
         </div>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-4 text-center">
           <Users size={24} className="mx-auto text-blue-600 mb-2" />
           <p className="text-2xl font-bold">{users.length}</p>
-          <p className="text-sm text-gray-500">Total Users</p>
+          <p className="text-sm text-zinc-500">Total Users</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-4 text-center">
           <UserCheck size={24} className="mx-auto text-green-600 mb-2" />
           <p className="text-2xl font-bold">
             {users.filter((u) => u.isActive).length}
           </p>
-          <p className="text-sm text-gray-500">Active</p>
+          <p className="text-sm text-zinc-500">Active</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-4 text-center">
           <UserX size={24} className="mx-auto text-red-500 mb-2" />
           <p className="text-2xl font-bold">
             {users.filter((u) => !u.isActive).length}
           </p>
-          <p className="text-sm text-gray-500">Inactive</p>
+          <p className="text-sm text-zinc-500">Inactive</p>
         </div>
       </div>
 
       {/* Users table */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-5 py-3 font-medium text-gray-500">
+              <tr className="bg-zinc-900/50 border-b border-zinc-700">
+                <th className="text-left px-5 py-3 font-medium text-zinc-500">
                   User
                 </th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">
+                <th className="text-left px-5 py-3 font-medium text-zinc-500">
                   Email
                 </th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">
+                <th className="text-left px-5 py-3 font-medium text-zinc-500">
                   Organisation
                 </th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">
+                <th className="text-left px-5 py-3 font-medium text-zinc-500">
                   Role
                 </th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">
+                <th className="text-left px-5 py-3 font-medium text-zinc-500">
                   Status
                 </th>
-                <th className="text-right px-5 py-3 font-medium text-gray-500">
+                <th className="text-right px-5 py-3 font-medium text-zinc-500">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {users.map((u) => (
-                <tr key={u._id} className="hover:bg-gray-50">
+                <tr key={u._id} className="hover:bg-zinc-900/50">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold text-xs">
                         {u.name?.charAt(0)?.toUpperCase()}
                       </div>
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-zinc-100">
                         {u.name}
                       </span>
                     </div>
                   </td>
-                  <td className="px-5 py-3 text-gray-600">{u.email}</td>
-                  <td className="px-5 py-3 text-gray-600">{u.organisation}</td>
+                  <td className="px-5 py-3 text-zinc-400">{u.email}</td>
+                  <td className="px-5 py-3 text-zinc-400">{u.organisation}</td>
                   <td className="px-5 py-3">
                     <div className="relative">
                       <select
@@ -191,7 +191,7 @@ export default function AdminPage() {
                     <button
                       onClick={() => handleToggleStatus(u._id)}
                       disabled={updatingId === u._id}
-                      className={`text-xs font-medium px-3 py-1 rounded-lg transition-colors ${
+                      className={`text-xs font-medium px-3 py-1 rounded-xl transition-colors ${
                         u.isActive
                           ? "text-red-600 hover:bg-red-50"
                           : "text-green-600 hover:bg-green-50"

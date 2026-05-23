@@ -215,7 +215,7 @@ export default function VideoPlayerPage() {
       <div className="flex items-center gap-4">
         <button
           onClick={() => navigate(-1)}
-          className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
+          className="p-2 hover:bg-zinc-800/50 rounded-xl text-zinc-400"
         >
           <ArrowLeft size={20} />
         </button>
@@ -227,10 +227,10 @@ export default function VideoPlayerPage() {
               onChange={(e) =>
                 setEditForm({ ...editForm, title: e.target.value })
               }
-              className="text-2xl font-bold text-gray-900 border-b-2 border-primary-500 outline-none bg-transparent w-full"
+              className="text-2xl font-bold text-zinc-100 border-b-2 border-primary-500 outline-none bg-transparent w-full"
             />
           ) : (
-            <h1 className="text-2xl font-bold text-gray-900">{video.title}</h1>
+            <h1 className="text-2xl font-bold text-zinc-100">{video.title}</h1>
           )}
         </div>
         {canEdit && (
@@ -239,13 +239,13 @@ export default function VideoPlayerPage() {
               <>
                 <button
                   onClick={handleSave}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm"
+                  className="px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 text-sm"
                 >
                   Save
                 </button>
                 <button
                   onClick={() => setEditing(false)}
-                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm"
+                  className="px-4 py-2 border border-zinc-700 text-zinc-300 rounded-xl hover:bg-zinc-900/50 text-sm"
                 >
                   Cancel
                 </button>
@@ -254,7 +254,7 @@ export default function VideoPlayerPage() {
               <>
                 <button
                   onClick={() => setEditing(true)}
-                  className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
+                  className="p-2 hover:bg-zinc-800/50 rounded-xl text-zinc-400"
                   title="Edit"
                 >
                   <Edit size={18} />
@@ -262,7 +262,7 @@ export default function VideoPlayerPage() {
                 {canReprocess && (
                   <button
                     onClick={handleReprocess}
-                    className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
+                    className="p-2 hover:bg-zinc-800/50 rounded-xl text-zinc-400"
                     title="Reprocess"
                   >
                     <RefreshCw size={18} />
@@ -271,7 +271,7 @@ export default function VideoPlayerPage() {
                 {canDelete && (
                   <button
                     onClick={handleDelete}
-                    className="p-2 hover:bg-red-50 rounded-lg text-red-500"
+                    className="p-2 hover:bg-red-50 rounded-xl text-red-500"
                     title="Delete"
                   >
                     <Trash2 size={18} />
@@ -301,7 +301,7 @@ export default function VideoPlayerPage() {
               </video>
             </div>
           ) : (
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-6">
               <ProgressTracker
                 progress={video.processingProgress || 0}
                 status={video.processingStatus}
@@ -313,7 +313,7 @@ export default function VideoPlayerPage() {
           {/* Description */}
           {editing ? (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-zinc-300 mb-1">
                 Description
               </label>
               <textarea
@@ -322,25 +322,25 @@ export default function VideoPlayerPage() {
                   setEditForm({ ...editForm, description: e.target.value })
                 }
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none resize-none"
+                className="w-full px-4 py-2 border border-zinc-700 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none resize-none"
               />
             </div>
           ) : (
             video.description && (
-              <div className="bg-white rounded-xl border border-gray-200 p-5">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">
+              <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-5">
+                <h3 className="text-sm font-medium text-zinc-500 mb-2">
                   Description
                 </h3>
-                <p className="text-gray-700">{video.description}</p>
+                <p className="text-zinc-300">{video.description}</p>
               </div>
             )
           )}
 
           {/* Edit fields */}
           {editing && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white rounded-xl border border-gray-200 p-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-zinc-900/80 rounded-xl border border-zinc-700 p-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-zinc-300 mb-1">
                   Tags
                 </label>
                 <input
@@ -349,11 +349,11 @@ export default function VideoPlayerPage() {
                   onChange={(e) =>
                     setEditForm({ ...editForm, tags: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none"
+                  className="w-full px-4 py-2 border border-zinc-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 outline-none"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-zinc-300 mb-1">
                   Category
                 </label>
                 <input
@@ -362,11 +362,11 @@ export default function VideoPlayerPage() {
                   onChange={(e) =>
                     setEditForm({ ...editForm, category: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none"
+                  className="w-full px-4 py-2 border border-zinc-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 outline-none"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-zinc-300 mb-1">
                   Visibility
                 </label>
                 <select
@@ -374,7 +374,7 @@ export default function VideoPlayerPage() {
                   onChange={(e) =>
                     setEditForm({ ...editForm, visibility: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-primary-500 outline-none"
+                  className="w-full px-4 py-2 border border-zinc-700 rounded-xl text-sm bg-zinc-900/80 focus:ring-2 focus:ring-primary-500 outline-none"
                 >
                   <option value="private">Private</option>
                   <option value="organisation">Organisation</option>
@@ -388,13 +388,13 @@ export default function VideoPlayerPage() {
         {/* Sidebar */}
         <div className="space-y-4">
           {/* Sensitivity classification */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="text-sm font-medium text-gray-500 mb-3 flex items-center gap-2">
+          <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-5">
+            <h3 className="text-sm font-medium text-zinc-500 mb-3 flex items-center gap-2">
               <Shield size={16} />
               Sensitivity Analysis
             </h3>
             {video.sensitivityClassification === "safe" && (
-              <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg mb-3">
+              <div className="flex items-center gap-3 p-3 bg-green-50 rounded-xl mb-3">
                 <CheckCircle size={24} className="text-green-600" />
                 <div>
                   <p className="font-semibold text-green-800">Safe Content</p>
@@ -407,7 +407,7 @@ export default function VideoPlayerPage() {
               </div>
             )}
             {video.sensitivityClassification === "flagged" && (
-              <div className="flex items-center gap-3 p-3 bg-red-50 rounded-lg mb-3">
+              <div className="flex items-center gap-3 p-3 bg-red-50 rounded-xl mb-3">
                 <AlertTriangle size={24} className="text-red-600" />
                 <div>
                   <p className="font-semibold text-red-800">Flagged Content</p>
@@ -419,9 +419,9 @@ export default function VideoPlayerPage() {
               </div>
             )}
             {video.sensitivityClassification === "unprocessed" && (
-              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg mb-3">
-                <Clock size={24} className="text-gray-400" />
-                <p className="text-gray-500">Not yet analysed</p>
+              <div className="flex items-center gap-3 p-3 bg-zinc-900/50 rounded-xl mb-3">
+                <Clock size={24} className="text-zinc-600" />
+                <p className="text-zinc-500">Not yet analysed</p>
               </div>
             )}
 
@@ -443,12 +443,12 @@ export default function VideoPlayerPage() {
                   ).map(({ label, value }) => (
                     <div key={label}>
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600">{label}</span>
+                        <span className="text-zinc-400">{label}</span>
                         <span className="font-medium">
                           {((value || 0) * 100).toFixed(1)}%
                         </span>
                       </div>
-                      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-zinc-800/50 rounded-full overflow-hidden">
                         <div
                           className={`h-full rounded-full transition-all ${
                             (value || 0) > 0.5
@@ -469,22 +469,22 @@ export default function VideoPlayerPage() {
           </div>
 
           {/* Video metadata */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="text-sm font-medium text-gray-500 mb-3">
+          <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-5">
+            <h3 className="text-sm font-medium text-zinc-500 mb-3">
               Video Details
             </h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-3">
-                <FileVideo size={16} className="text-gray-400" />
-                <span className="text-gray-600">{video.originalName}</span>
+                <FileVideo size={16} className="text-zinc-600" />
+                <span className="text-zinc-400">{video.originalName}</span>
               </div>
               <div className="flex items-center gap-3">
-                <HardDrive size={16} className="text-gray-400" />
-                <span className="text-gray-600">{formatSize(video.size)}</span>
+                <HardDrive size={16} className="text-zinc-600" />
+                <span className="text-zinc-400">{formatSize(video.size)}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Calendar size={16} className="text-gray-400" />
-                <span className="text-gray-600">
+                <Calendar size={16} className="text-zinc-600" />
+                <span className="text-zinc-400">
                   {new Date(video.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -493,19 +493,19 @@ export default function VideoPlayerPage() {
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <Eye size={16} className="text-gray-400" />
-                <span className="text-gray-600 capitalize">
+                <Eye size={16} className="text-zinc-600" />
+                <span className="text-zinc-400 capitalize">
                   {video.visibility}
                 </span>
               </div>
               {video.tags && video.tags.length > 0 && (
                 <div className="flex items-start gap-3">
-                  <Tag size={16} className="text-gray-400 mt-0.5" />
+                  <Tag size={16} className="text-zinc-600 mt-0.5" />
                   <div className="flex flex-wrap gap-1">
                     {video.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs"
+                        className="px-2 py-0.5 bg-zinc-800/50 text-zinc-400 rounded text-xs"
                       >
                         {tag}
                       </span>
@@ -514,11 +514,11 @@ export default function VideoPlayerPage() {
                 </div>
               )}
               {video.uploadedBy && video.uploadedBy.role !== "admin" && (
-                <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
+                <div className="flex items-center gap-3 pt-2 border-t border-zinc-800">
                   <div className="w-6 h-6 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center text-xs font-bold">
                     {video.uploadedBy.name?.charAt(0)}
                   </div>
-                  <span className="text-gray-600">{video.uploadedBy.name}</span>
+                  <span className="text-zinc-400">{video.uploadedBy.name}</span>
                 </div>
               )}
             </div>

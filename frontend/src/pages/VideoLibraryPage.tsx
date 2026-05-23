@@ -128,15 +128,15 @@ export default function VideoLibraryPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Video Library</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-zinc-100">Video Library</h1>
+          <p className="text-zinc-500 mt-1">
             {pagination.total} video(s) total
           </p>
         </div>
         {can("video:upload") && (
           <button
             onClick={() => navigate("/upload")}
-            className="flex items-center gap-2 px-5 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+            className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 rounded-xl hover:from-primary-500 hover:to-primary-400 transition-colors text-sm font-medium"
           >
             <Upload size={16} />
             Upload Video
@@ -145,20 +145,20 @@ export default function VideoLibraryPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4">
+      <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-4">
         <form
           onSubmit={handleSearch}
           className="flex flex-wrap gap-3 items-end"
         >
           {/* Search */}
           <div className="flex-1 min-w-[200px]">
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-zinc-500 mb-1">
               Search
             </label>
             <div className="relative">
               <Search
                 size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600"
               />
               <input
                 type="text"
@@ -167,14 +167,14 @@ export default function VideoLibraryPage() {
                   setFilters({ ...filters, search: e.target.value })
                 }
                 placeholder="Search by title..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-2 border border-zinc-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
               />
             </div>
           </div>
 
           {/* Status filter */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-zinc-500 mb-1">
               Status
             </label>
             <select
@@ -182,7 +182,7 @@ export default function VideoLibraryPage() {
               onChange={(e) =>
                 setFilters({ ...filters, status: e.target.value })
               }
-              className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-primary-500 outline-none"
+              className="px-3 py-2 border border-zinc-700 rounded-xl text-sm bg-zinc-900/80 focus:ring-2 focus:ring-primary-500 outline-none"
             >
               <option value="">All statuses</option>
               <option value="pending">Pending</option>
@@ -194,7 +194,7 @@ export default function VideoLibraryPage() {
 
           {/* Sensitivity filter */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-zinc-500 mb-1">
               Sensitivity
             </label>
             <select
@@ -202,7 +202,7 @@ export default function VideoLibraryPage() {
               onChange={(e) =>
                 setFilters({ ...filters, sensitivity: e.target.value })
               }
-              className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-primary-500 outline-none"
+              className="px-3 py-2 border border-zinc-700 rounded-xl text-sm bg-zinc-900/80 focus:ring-2 focus:ring-primary-500 outline-none"
             >
               <option value="">All</option>
               <option value="safe">Safe</option>
@@ -213,7 +213,7 @@ export default function VideoLibraryPage() {
 
           {/* Sort */}
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-zinc-500 mb-1">
               Sort by
             </label>
             <select
@@ -222,7 +222,7 @@ export default function VideoLibraryPage() {
                 const [sortBy, sortOrder] = e.target.value.split("-");
                 setFilters({ ...filters, sortBy, sortOrder });
               }}
-              className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-primary-500 outline-none"
+              className="px-3 py-2 border border-zinc-700 rounded-xl text-sm bg-zinc-900/80 focus:ring-2 focus:ring-primary-500 outline-none"
             >
               <option value="createdAt-desc">Newest first</option>
               <option value="createdAt-asc">Oldest first</option>
@@ -235,7 +235,7 @@ export default function VideoLibraryPage() {
 
           <button
             type="submit"
-            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm flex items-center gap-2 transition-colors"
+            className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 rounded-xl hover:from-primary-500 hover:to-primary-400 text-sm flex items-center gap-2 transition-colors"
           >
             <Filter size={14} />
             Apply
@@ -249,10 +249,10 @@ export default function VideoLibraryPage() {
           <Loader2 size={32} className="animate-spin text-primary-600" />
         </div>
       ) : videos.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-16 text-center">
+        <div className="bg-zinc-900/80 rounded-xl border border-zinc-700 p-16 text-center">
           <Film size={48} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-gray-500 text-lg">No videos found</p>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-zinc-500 text-lg">No videos found</p>
+          <p className="text-zinc-600 text-sm mt-1">
             Try adjusting your filters
           </p>
         </div>
@@ -270,17 +270,17 @@ export default function VideoLibraryPage() {
           <button
             onClick={() => fetchVideos(pagination.page - 1)}
             disabled={pagination.page <= 1}
-            className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="p-2 border border-zinc-700 rounded-xl hover:bg-zinc-900/50 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronLeft size={18} />
           </button>
-          <span className="text-sm text-gray-600 px-4">
+          <span className="text-sm text-zinc-400 px-4">
             Page {pagination.page} of {pagination.pages}
           </span>
           <button
             onClick={() => fetchVideos(pagination.page + 1)}
             disabled={pagination.page >= pagination.pages}
-            className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="p-2 border border-zinc-700 rounded-xl hover:bg-zinc-900/50 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronRight size={18} />
           </button>

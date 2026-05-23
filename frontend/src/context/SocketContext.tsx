@@ -21,7 +21,7 @@ interface SocketContextValue {
 const SocketContext = createContext<SocketContextValue | null>(null);
 
 const SOCKET_URL: string =
-  import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+  import.meta.env.VITE_SOCKET_URL || "http://localhost:5001";
 
 interface SocketProviderProps {
   children: ReactNode;
