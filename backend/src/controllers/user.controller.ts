@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { User } from "../models";
 import config from "../config";
 import { Server as SocketIOServer } from "socket.io";
-import bcrypt from "bcryptjs";
 
 export const createUser = async (
   req: Request,
@@ -22,20 +21,17 @@ export const createUser = async (
       return;
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // If admin has an organisation, new users inherit it (unless super admin)
     let userOrganisation = organisation;
     if (req.user!.organisation && !organisation) {
       userOrganisation = req.user!.organisation;
     }
 
-    // Create user
+    // Create user - password will be hashed by the pre-save hook
     const user = await User.create({
       name,
       email,
-      password: hashedPassword,
+      password, // Don't hash here - the model's pre-save hook handles it
       role: role || config.roles.VIEWER,
       organisation: userOrganisation,
       isActive: true,

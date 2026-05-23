@@ -87,20 +87,10 @@ export const listVideos = async (
     if (!userOrg) {
       // User without an organisation — only see public videos
       filter.visibility = "public";
-    } else if (req.user!.role === config.roles.ADMIN) {
-      filter.organisation = userOrg;
-    } else if (req.user!.role === config.roles.EDITOR) {
-      filter.$or = [
-        { uploadedBy: req.user!._id },
-        {
-          organisation: userOrg,
-          visibility: { $in: ["organisation", "public"] },
-        },
-      ];
     } else {
-      // Viewer with an org — see org + public videos
+      // Users with an organisation see all videos from their org
+      // Admins, Editors, and Viewers all see the same org videos
       filter.organisation = userOrg;
-      filter.visibility = { $in: ["organisation", "public"] };
     }
 
     if (status) filter.processingStatus = status;
