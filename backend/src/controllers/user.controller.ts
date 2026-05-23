@@ -2,6 +2,65 @@ import { Request, Response, NextFunction } from "express";
 import { User } from "../models";
 import config from "../config";
 import { Server as SocketIOServer } from "socket.io";
+import bcrypt from "bcryptjs";
+
+export const createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { name, email, password, role, organisation } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      res.status(400).json({
+        success: false,
+        message: "User with this email already exists.",
+      });
+      return;
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // If admin has an organisation, new users inherit it (unless super admin)
+    let userOrganisation = organisation;
+    if (req.user!.organisation && !organisation) {
+      userOrganisation = req.user!.organisation;
+    }
+
+    // Create user
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role: role || config.roles.VIEWER,
+      organisation: userOrganisation,
+      isActive: true,
+    });
+
+    const userResponse = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      organisation: user.organisation,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+
+    res.status(201).json({
+      success: true,
+      message: "User created successfully.",
+      data: { user: userResponse },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const listUsers = async (
   req: Request,

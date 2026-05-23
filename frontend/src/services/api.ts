@@ -119,6 +119,15 @@ export const userAPI = {
   ): Promise<AxiosResponse<ApiResponse<{ users: User[] }>>> =>
     api.get("/users", { params }),
 
+  create: (data: {
+    name: string;
+    email: string;
+    password: string;
+    role?: string;
+    organisation?: string;
+  }): Promise<AxiosResponse<ApiResponse<{ user: User }>>> =>
+    api.post("/users", data),
+
   updateRole: (
     id: string,
     role: string,
