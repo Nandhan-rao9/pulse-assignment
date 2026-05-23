@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "tsc && node dist/server.js",
-    "seed:admin": "npx ts-node src/scripts/seedAdmin.ts"
+    "seed:admin": "npx ts-node src/scripts/seedAdmin.ts",
+    "seed:demo": "npx ts-node src/scripts/seedDemoUsers.ts"
   },
   "keywords": [
     "video",

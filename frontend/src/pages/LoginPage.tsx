@@ -28,6 +28,16 @@ export default function LoginPage() {
     }
   };
 
+  const fillDemo = (role: "admin" | "editor" | "viewer"): void => {
+    const credentials = {
+      admin: { email: "admin@pulse.com", password: "admin123" },
+      editor: { email: "editor@pulse.com", password: "editor123" },
+      viewer: { email: "viewer@pulse.com", password: "viewer123" },
+    };
+    setEmail(credentials[role].email);
+    setPassword(credentials[role].password);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-black px-4 relative overflow-hidden">
       {/* Animated background gradients */}
@@ -120,17 +130,33 @@ export default function LoginPage() {
           {/* Demo credentials */}
           <div className="mt-6 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
             <p className="text-xs font-bold text-zinc-400 mb-2 uppercase tracking-wider">
-              Demo Accounts:
+              Demo Accounts (click to auto-fill):
             </p>
             <div className="space-y-2 text-xs">
-              <div className="flex items-center justify-between p-2 bg-zinc-800/50 rounded-xl border border-zinc-700/50">
+              <button
+                type="button"
+                onClick={() => fillDemo("admin")}
+                className="w-full flex items-center justify-between p-2 bg-zinc-800/50 rounded-xl border border-zinc-700/50 hover:bg-zinc-800 hover:border-purple-500/50 transition-all cursor-pointer"
+              >
                 <span className="font-semibold text-purple-400">Admin:</span>
                 <span className="text-zinc-400 font-mono">admin@pulse.com / admin123</span>
-              </div>
-              <div className="flex items-center justify-between p-2 bg-zinc-800/50 rounded-xl border border-zinc-700/50">
-                <span className="font-semibold text-blue-400">Editor/Viewer:</span>
-                <span className="text-zinc-400">Register new account</span>
-              </div>
+              </button>
+              <button
+                type="button"
+                onClick={() => fillDemo("editor")}
+                className="w-full flex items-center justify-between p-2 bg-zinc-800/50 rounded-xl border border-zinc-700/50 hover:bg-zinc-800 hover:border-blue-500/50 transition-all cursor-pointer"
+              >
+                <span className="font-semibold text-blue-400">Editor:</span>
+                <span className="text-zinc-400 font-mono">editor@pulse.com / editor123</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => fillDemo("viewer")}
+                className="w-full flex items-center justify-between p-2 bg-zinc-800/50 rounded-xl border border-zinc-700/50 hover:bg-zinc-800 hover:border-green-500/50 transition-all cursor-pointer"
+              >
+                <span className="font-semibold text-green-400">Viewer:</span>
+                <span className="text-zinc-400 font-mono">viewer@pulse.com / viewer123</span>
+              </button>
             </div>
           </div>
         </div>

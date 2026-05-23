@@ -99,6 +99,7 @@ cd pulse
 cd backend
 npm install
 cp .env.example .env    # Configure environment
+npm run seed:demo       # Create demo users
 npm run dev             # Start on port 5000
 ```
 
@@ -113,6 +114,13 @@ npm run dev             # Start on port 5173
 ```
 Frontend: http://localhost:5173
 Backend:  http://localhost:5000
+```
+
+**5. Demo credentials** (click to auto-fill on login page)
+```
+Admin:  admin@pulse.com  / admin123
+Editor: editor@pulse.com / editor123
+Viewer: viewer@pulse.com / viewer123
 ```
 
 ---
