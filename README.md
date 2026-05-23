@@ -1,8 +1,7 @@
 <div align="center">
 
-# 🎬 Pulse
 
-### AI-Powered Video Management Platform
+### Video Management Platform
 
 *Intelligent content moderation • Real-time processing • Enterprise-grade RBAC*
 
@@ -19,7 +18,7 @@
 
 ## 🌟 Overview
 
-**Pulse** is a production-ready video management platform that automatically moderates content using AI, enforces granular access control, and provides real-time collaboration features for multi-tenant organizations.
+this is a production-ready video management platform that automatically moderates content using AI, enforces granular access control, and provides real-time collaboration features for multi-tenant organizations.
 
 ### Key Highlights
 
