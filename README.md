@@ -94,7 +94,7 @@ git clone <repo-url>
 cd pulse
 ```
 
-**2. Setup backend** ([详细文档](./backend/README.md))
+**2. Setup backend** 
 ```bash
 cd backend
 npm install
@@ -103,7 +103,7 @@ npm run seed:demo       # Create demo users
 npm run dev             # Start on port 5000
 ```
 
-**3. Setup frontend** ([详细文档](./frontend/README.md))
+**3. Setup frontend** 
 ```bash
 cd frontend
 npm install
