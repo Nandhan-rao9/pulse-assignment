@@ -579,10 +579,10 @@ export const processVideo = async (
 
     // Flag if ANY category is concerning
     const adultFlagged =
-      adultStats.weighted > 0.4 ||
-      adultStats.max > 0.7 ||
-      adultScores.filter((s) => s > 0.4).length >= 2;
-    const languageFlagged = languageScore > 0.15;
+      adultStats.weighted > 0.65 ||
+      adultStats.max > 0.85 ||
+      adultScores.filter((s) => s > 0.7).length >= 2;
+    const languageFlagged = languageScore > 0.2;
 
     video.sensitivityClassification =
       adultFlagged || languageFlagged
