@@ -347,30 +347,16 @@ function canAccessVideo(user: IUser, video: IVideo): boolean {
     return video.visibility === "public";
   }
 
-  if (
-    user.role === config.roles.ADMIN &&
-    user.organisation === video.organisation
-  ) {
-    return true;
-  }
-
-  // Handle both populated and unpopulated uploadedBy
-  const uploadedById = (video.uploadedBy as { _id?: unknown })?._id
-    ? String((video.uploadedBy as { _id: unknown })._id)
-    : String(video.uploadedBy);
-
-  if (uploadedById === user._id.toString()) {
-    return true;
-  }
-
+  // All users in the same organisation can access all org videos
+  // (admins, editors, and viewers have equal access to org content)
   if (user.organisation === video.organisation) {
-    if (video.visibility === "organisation" || video.visibility === "public") {
-      return true;
-    }
+    return true;
   }
 
+  // Public videos are accessible to everyone
   if (video.visibility === "public") {
     return true;
   }
+
   return false;
 }
