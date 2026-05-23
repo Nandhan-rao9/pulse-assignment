@@ -25,7 +25,9 @@ const config = {
   whisperModel: "openai/whisper-large-v3",
   maxAnalysisFrames: parseInt(process.env.MAX_ANALYSIS_FRAMES || "10", 10),
   frameIntervalSeconds: parseInt(process.env.FRAME_INTERVAL_SECONDS || "5", 10),
-  corsOrigin: process.env.CORS_ORIGIN || "http://localhost:5173",
+  corsOrigin: process.env.CORS_ORIGIN?.includes(',')
+    ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+    : process.env.CORS_ORIGIN || "http://localhost:5173",
   roles: {
     VIEWER: "viewer",
     EDITOR: "editor",
